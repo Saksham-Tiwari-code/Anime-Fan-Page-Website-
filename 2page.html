@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Join My Crew</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Montserrat', sans-serif;
+            margin: 0;
+            padding: 0;
+            color: #f0f0f0;
+            background-color: #121212;
+            overflow-x: hidden;
+        }
+        header {
+            background-color: #1e1e1e;
+            color: #f0f0f0;
+            padding: 20px;
+            text-align: center;
+            box-shadow: 0 0 10px rgba(255, 215, 0, 0.5);
+        }
+        nav a {
+            color: #ffd700;
+            text-decoration: none;
+            margin: 0 15px;
+            position: relative;
+            font-weight: 700;
+        }
+        nav a::after {
+            content: '';
+            position: absolute;
+            left: 50%;
+            bottom: -5px;
+            width: 0;
+            height: 2px;
+            background-color: #ffd700;
+            transition: width 0.3s ease;
+            transform: translateX(-50%);
+        }
+        nav a:hover::after {
+            width: 100%;
+        }
+        .hero {
+            background-image: url('https://via.placeholder.com/1500x400.png?text=Join+My+Crew');
+            background-size: cover;
+            height: 400px;
+            color: white;
+            text-align: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            box-shadow: 0 0 10px rgba(255, 215, 0, 0.7);
+            position: relative;
+            overflow: hidden;
+        }
+        .hero h1 {
+            font-size: 3em;
+            margin: 0;
+            text-shadow: 0 0 15px #ffd700;
+        }
+        .hero p {
+            font-size: 1.5em;
+            margin: 10px 0;
+            text-shadow: 0 0 10px #ffd700;
+        }
+        .container {
+            padding: 20px;
+        }
+        .info-container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 30px;
+            background: linear-gradient(145deg, #1e1e1e, #121212);
+            border-radius: 15px;
+            box-shadow: 0 0 20px rgba(255, 215, 0, 0.7);
+        }
+        .info-container h2 {
+            text-align: center;
+            color: #ffd700;
+            margin-bottom: 20px;
+        }
+        .info-container p {
+            font-size: 1.2em;
+            line-height: 1.6;
+            color: #f0f0f0;
+        }
+        .cta-button {
+            display: block;
+            width: 100%;
+            padding: 15px;
+            background-color: #ffd700;
+            color: #121212;
+            border: none;
+            border-radius: 8px;
+            font-size: 1.2em;
+            cursor: pointer;
+            text-align: center;
+            transition: background-color 0.3s ease, transform 0.3s ease;
+            box-shadow: 0 0 15px rgba(255, 215, 0, 0.7);
+            margin-top: 20px;
+        }
+        .cta-button:hover {
+            background-color: #ffcc00;
+            transform: scale(1.05);
+        }
+        footer {
+            background-color: #1e1e1e;
+            color: #f0f0f0;
+            text-align: center;
+            padding: 10px;
+            position: fixed;
+            width: 100%;
+            bottom: 0;
+            box-shadow: 0 0 10px rgba(255, 215, 0, 0.5);
+        }
+        footer a {
+            color: #ffd700;
+            text-decoration: none;
+        }
+        footer a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>One Piece Fan Page</h1>
+        <nav>
+            <a href="new.file.html">Home</a>
+            <a href="#purchase">Purchase</a>
+            <a href="4page.html">Characters</a>
+            <a href="2page.html">News</a>
+            <a href="Join-crew.html">Join Crew</a>
+        </nav>
+    </header>
+    <div class="hero">
+        <h1>Join My Crew!</h1>
+        <img src="C:\Users\SAKSHAM\OneDrive\Pictures\goku-black-super-5120x2880-13399.jpg" alt="">
+        <p>Discover more about becoming a part of our amazing adventure.</p>
+    </div>
+    <div class="container">
+        <div class="info-container">
+            <h2>Why Join Our Crew?</h2>
+            <p>
+                Joining our crew means becoming part of an epic journey through the world of One Piece. You'll experience adventures like never before and become part of a dedicated community of fans.
+                <br><br>
+                We offer exclusive content, exciting events, and a chance to interact with other passionate fans. Whether you're a longtime fan or new to the series, there's a place for you in our crew!
+                <br><br>
+                Sign up today and embark on an unforgettable adventure with us. The treasure awaits!
+            </p>
+            <a href="5page.html" class="cta-button">Join Crew</a>
+        </div>
+    </div>
+    <footer>
+        <p>&copy; 2024 One Piece Fan Page. All rights reserved. | <a href="#">Privacy Policy</a></p>
+    </footer>
+</body>
+</html>

@@ -1,0 +1,444 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>One Piece Character Page</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        body {
+            font-family: 'Montserrat', sans-serif;
+            margin: 0;
+            padding: 0;
+            color: #f0f0f0;
+            background: #000;
+            overflow-x: hidden;
+            background: url('https://www.transparenttextures.com/patterns/dark-matter.png') repeat, 
+                        linear-gradient(135deg, #1e1e1e, #121212);
+            background-size: 100% 100%, 400% 400%;
+            animation: gradientAnimation 15s ease infinite;
+        }
+
+        @keyframes gradientAnimation {
+            0% { background-position: 0% 0%; }
+            50% { background-position: 100% 100%; }
+            100% { background-position: 0% 0%; }
+        }
+
+        header {
+            background: rgba(0, 0, 0, 0.9);
+            color: #ffcc00;
+            padding: 20px;
+            text-align: center;
+            box-shadow: 0 4px 8px rgba(255, 215, 0, 0.6);
+            position: relative;
+            z-index: 2;
+            border-bottom: 3px solid #ffcc00;
+        }
+
+        header h1 {
+            margin: 0;
+            font-size: 3em;
+            text-shadow: 0 0 20px rgba(255, 215, 0, 0.9);
+        }
+
+        nav a {
+            color: #ffcc00;
+            text-decoration: none;
+            margin: 0 20px;
+            font-weight: 700;
+            transition: color 0.3s ease, transform 0.3s ease;
+            position: relative;
+        }
+
+        nav a::after {
+            content: '';
+            position: absolute;
+            left: 50%;
+            bottom: -5px;
+            width: 0;
+            height: 2px;
+            background-color: #ffcc00;
+            transition: width 0.3s ease;
+            transform: translateX(-50%);
+        }
+
+        nav a:hover::after {
+            width: 100%;
+        }
+
+        .character-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            margin: 20px;
+            padding: 20px;
+        }
+
+        .character-card {
+            background: rgba(0, 0, 0, 0.8);
+            border-radius: 15px;
+            box-shadow: 0 4px 15px rgba(255, 215, 0, 0.5);
+            margin: 20px;
+            padding: 20px;
+            width: 300px;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            position: relative;
+            text-align: center;
+            overflow: hidden;
+            cursor: pointer;
+            border: 2px solid #ffcc00;
+            color: #ffcc00;
+        }
+
+        .character-card:hover {
+            transform: scale(1.05);
+            box-shadow: 0 8px 20px rgba(255, 215, 0, 0.7);
+        }
+
+        .character-image img {
+            width: 100%;
+            height: auto;
+            border-radius: 10px;
+            margin-bottom: 10px;
+            transition: transform 0.3s ease;
+        }
+
+        .character-card:hover .character-image img {
+            transform: scale(1.1);
+        }
+
+        .character-info {
+            display: none;
+            text-align: left;
+            margin-top: 10px;
+        }
+
+        .character-info.show {
+            display: block;
+        }
+
+        .character-info h2 {
+            font-size: 1.6em;
+            color: #ffcc00;
+            text-shadow: 0 0 10px #ffcc00;
+            margin: 0;
+        }
+
+        .character-info p {
+            font-size: 1em;
+            line-height: 1.6;
+            color: #e0e0e0;
+            margin-top: 10px;
+        }
+
+        .info-button {
+            background: transparent;
+            border: none;
+            color: #ffcc00;
+            font-size: 1.5em;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+            position: relative;
+        }
+
+        .info-button .fa-skull {
+            animation: roll 2s infinite linear;
+        }
+
+        @keyframes roll {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .info-button.expanded .fa-skull {
+            animation: none;
+        }
+
+        .scroll-to-top {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            width: 60px;
+            height: 60px;
+            background: #ffcc00;
+            color: #121212;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 10px rgba(255, 215, 0, 0.5);
+            cursor: pointer;
+            transition: background 0.3s ease, transform 0.3s ease;
+            z-index: 10;
+        }
+
+        .scroll-to-top:hover {
+            background: #ffd700;
+            transform: scale(1.1);
+        }
+
+        .scroll-to-top::before {
+            content: '↑';
+            font-size: 24px;
+            line-height: 1;
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+            animation: fadeIn 0.5s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .modal-content {
+            background: #1e1e1e;
+            padding: 20px;
+            border-radius: 15px;
+            max-width: 600px;
+            margin: 20px;
+            position: relative;
+            box-shadow: 0 4px 15px rgba(255, 215, 0, 0.5);
+            animation: zoomIn 0.5s ease;
+        }
+
+        @keyframes zoomIn {
+            from { transform: scale(0.9); opacity: 0; }
+            to { transform: scale(1); opacity: 1; }
+        }
+
+        .modal-close {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            cursor: pointer;
+            color: #ffd700;
+            font-size: 24px;
+        }
+
+        .modal-close:hover {
+            color: #ffcc00;
+        }
+
+        .modal-content img {
+            width: 100%;
+            height: auto;
+            border-radius: 10px;
+            margin-bottom: 20px;
+        }
+
+        .modal-content h2 {
+            color: #ffcc00;
+            font-size: 2em;
+            margin-top: 0;
+        }
+
+        .modal-content p {
+            color: #e0e0e0;
+            font-size: 1.2em;
+            line-height: 1.6;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>One Piece Characters</h1>
+        <nav>
+            <a href="new.file.html">Home</a>
+            <a href="#">Characters</a>
+            <a href="3page.html">News</a>
+            <a href="2page.html">Join-crew</a>
+            <a href="#">Contact</a>
+        </nav>
+    </header>
+    <div class="character-container">
+        <!-- Character Card: Monkey D. Luffy -->
+        <div class="character-card">
+            <div class="character-image">
+                <img src="https://example.com/luffy-image.jpg" alt="Monkey D. Luffy">
+            </div>
+            <div class="character-info">
+                <h2>Monkey D. Luffy</h2>
+                <p><strong>Role:</strong> Captain</p>
+                <p><strong>Abilities:</strong> Gum-Gum Fruit Powers, Extraordinary Resilience</p>
+                <p><strong>Backstory:</strong> Luffy is the enthusiastic captain of the Straw Hat Pirates, with a dream of becoming the Pirate King. He possesses the powers of the Gum-Gum Fruit.</p>
+            </div>
+            <button class="info-button" onclick="toggleInfo(this)">
+                <i class="fas fa-skull"></i>
+            </button>
+        </div>
+        <!-- Character Card: Roronoa Zoro -->
+        <div class="character-card">
+            <div class="character-image">
+                <img src="https://example.com/zoro-image.jpg" alt="Roronoa Zoro">
+            </div>
+            <div class="character-info">
+                <h2>Roronoa Zoro</h2>
+                <p><strong>Role:</strong> Swordsman</p>
+                <p><strong>Abilities:</strong> Three-Sword Style, Incredible Strength</p>
+                <p><strong>Backstory:</strong> Zoro is the skilled swordsman of the Straw Hat Pirates, known for his Three-Sword Style technique and his unyielding dedication to becoming the greatest swordsman.</p>
+            </div>
+            <button class="info-button" onclick="toggleInfo(this)">
+                <i class="fas fa-skull"></i>
+            </button>
+        </div>
+        <!-- Character Card: Nami -->
+        <div class="character-card">
+            <div class="character-image">
+                <img src="https://example.com/nami-image.jpg" alt="Nami">
+            </div>
+            <div class="character-info">
+                <h2>Nami</h2>
+                <p><strong>Role:</strong> Navigator</p>
+                <p><strong>Abilities:</strong> Expert Navigator, Weather Manipulation</p>
+                <p><strong>Backstory:</strong> Nami is the brilliant navigator of the Straw Hat Pirates, with a deep knowledge of navigation and weather patterns. She dreams of creating a complete map of the world.</p>
+            </div>
+            <button class="info-button" onclick="toggleInfo(this)">
+                <i class="fas fa-skull"></i>
+            </button>
+        </div>
+        <!-- Character Card: Usopp -->
+        <div class="character-card">
+            <div class="character-image">
+                <img src="https://example.com/usopp-image.jpg" alt="Usopp">
+            </div>
+            <div class="character-info">
+                <h2>Usopp</h2>
+                <p><strong>Role:</strong> Sniper</p>
+                <p><strong>Abilities:</strong> Master Sniper, Inventive Engineering</p>
+                <p><strong>Backstory:</strong> Usopp is the sharpshooter of the Straw Hat Pirates, known for his incredible aim with a slingshot and his inventive engineering skills.</p>
+            </div>
+            <button class="info-button" onclick="toggleInfo(this)">
+                <i class="fas fa-skull"></i>
+            </button>
+        </div>
+        <!-- Character Card: Sanji -->
+        <div class="character-card">
+            <div class="character-image">
+                <img src="https://example.com/sanji-image.jpg" alt="Sanji">
+            </div>
+            <div class="character-info">
+                <h2>Sanji</h2>
+                <p><strong>Role:</strong> Cook</p>
+                <p><strong>Abilities:</strong> Expert Chef, Black Leg Martial Arts</p>
+                <p><strong>Backstory:</strong> Sanji is the talented cook of the Straw Hat Pirates, skilled in the art of Black Leg martial arts and with a passion for cooking the best dishes.</p>
+            </div>
+            <button class="info-button" onclick="toggleInfo(this)">
+                <i class="fas fa-skull"></i>
+            </button>
+        </div>
+        <!-- Character Card: Tony Tony Chopper -->
+        <div class="character-card">
+            <div class="character-image">
+                <img src="https://example.com/chopper-image.jpg" alt="Tony Tony Chopper">
+            </div>
+            <div class="character-info">
+                <h2>Tony Tony Chopper</h2>
+                <p><strong>Role:</strong> Doctor</p>
+                <p><strong>Abilities:</strong> Human-Human Fruit Powers, Medical Expertise</p>
+                <p><strong>Backstory:</strong> Chopper is the Straw Hat Pirates' doctor, possessing the powers of the Human-Human Fruit which allow him to transform into various forms and provide expert medical care.</p>
+            </div>
+            <button class="info-button" onclick="toggleInfo(this)">
+                <i class="fas fa-skull"></i>
+            </button>
+        </div>
+        <!-- Character Card: Nico Robin -->
+        <div class="character-card">
+            <div class="character-image">
+                <img src="https://example.com/robin-image.jpg" alt="Nico Robin">
+            </div>
+            <div class="character-info">
+                <h2>Nico Robin</h2>
+                <p><strong>Role:</strong> Archaeologist</p>
+                <p><strong>Abilities:</strong> Flower-Flower Fruit Powers, Archaeological Knowledge</p>
+                <p><strong>Backstory:</strong> Robin is the archaeologist of the Straw Hat Pirates, with the powers of the Flower-Flower Fruit allowing her to grow extra limbs and her expertise in ancient languages and history.</p>
+            </div>
+            <button class="info-button" onclick="toggleInfo(this)">
+                <i class="fas fa-skull"></i>
+            </button>
+        </div>
+        <!-- Character Card: Franky -->
+        <div class="character-card">
+            <div class="character-image">
+                <img src="https://example.com/franky-image.jpg" alt="Franky">
+            </div>
+            <div class="character-info">
+                <h2>Franky</h2>
+                <p><strong>Role:</strong> Shipwright</p>
+                <p><strong>Abilities:</strong> Cybernetic Enhancements, Shipbuilding Skills</p>
+                <p><strong>Backstory:</strong> Franky is the shipwright of the Straw Hat Pirates, a powerful cyborg with incredible strength and skills in building and repairing ships.</p>
+            </div>
+            <button class="info-button" onclick="toggleInfo(this)">
+                <i class="fas fa-skull"></i>
+            </button>
+        </div>
+        <!-- Character Card: Brook -->
+        <div class="character-card">
+            <div class="character-image">
+                <img src="https://example.com/brook-image.jpg" alt="Brook">
+            </div>
+            <div class="character-info">
+                <h2>Brook</h2>
+                <p><strong>Role:</strong> Musician</p>
+                <p><strong>Abilities:</strong> Revive-Revive Fruit Powers, Skilled Musician</p>
+                <p><strong>Backstory:</strong> Brook is the musician of the Straw Hat Pirates, with the powers of the Revive-Revive Fruit granting him immortality and his exceptional musical talents.</p>
+            </div>
+            <button class="info-button" onclick="toggleInfo(this)">
+                <i class="fas fa-skull"></i>
+            </button>
+        </div>
+        <!-- Character Card: Jinbe -->
+        <div class="character-card">
+            <div class="character-image">
+                <img src="https://example.com/jinbe-image.jpg" alt="Jinbe">
+            </div>
+            <div class="character-info">
+                <h2>Jinbe</h2>
+                <p><strong>Role:</strong> Helmsman</p>
+                <p><strong>Abilities:</strong> Fish-Fish Fruit Powers, Master of Fish-Man Karate</p>
+                <p><strong>Backstory:</strong> Jinbe is the Fish-Man helmsman of the Straw Hat Pirates, with mastery over Fish-Man Karate and the abilities of the Fish-Fish Fruit, making him a formidable ally.</p>
+            </div>
+            <button class="info-button" onclick="toggleInfo(this)">
+                <i class="fas fa-skull"></i>
+            </button>
+        </div>
+    </div>
+    <div class="scroll-to-top" onclick="scrollToTop()"></div>
+
+    <script>
+        function toggleInfo(button) {
+            const info = button.previousElementSibling;
+            const isExpanded = info.classList.contains('show');
+            info.classList.toggle('show', !isExpanded);
+            button.classList.toggle('expanded', !isExpanded);
+        }
+
+        function scrollToTop() {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        // Close modals on click outside
+        window.onclick = function(event) {
+            const modals = document.querySelectorAll('.modal');
+            if (event.target.classList.contains('modal')) {
+                modals.forEach(modal => {
+                    modal.style.display = 'none';
+                });
+            }
+        }
+    </script>
+</body>
+</html>
